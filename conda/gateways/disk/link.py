@@ -45,6 +45,7 @@ if not on_win:  # pragma: win no cover
 
 else:  # pragma: unix no cover
     from ctypes import windll, wintypes
+    import os
 
     CreateHardLink = windll.kernel32.CreateHardLinkW
     CreateHardLink.restype = wintypes.BOOL
@@ -72,8 +73,8 @@ else:  # pragma: unix no cover
         if not CreateSymbolicLink(dst, src, isdir(src)):
             raise CondaOSError(f"win32 soft link failed\n  src: {src}\n  dst: {dst}")
 
-    link = win_hard_link
-    symlink = win_soft_link
+    link = os.link
+    symlink = os.symlink
 
 
 if not (on_win and PYPY):

@@ -325,7 +325,7 @@ def create_fake_executable_softlink(src, dst):
 
 def copy(src, dst):
     # on unix, make sure relative symlinks stay symlinks
-    if not on_win and islink(src):
+    if islink(src):
         src_points_to = readlink(src)
         if not src_points_to.startswith("/"):
             # copy relative symlinks as symlinks
